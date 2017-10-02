@@ -1,3 +1,13 @@
+<a name="0.1.2"></a>
+## [0.1.2](https://github.com/advanced-rest-client/arc-onboarding/compare/0.1.1...0.1.2) (2017-10-02)
+
+
+### Fix
+
+* Fixed saving data in chrome ([d39e8ec6ea6ca60d4be70b50cb813d1e7599addb](https://github.com/advanced-rest-client/arc-onboarding/commit/d39e8ec6ea6ca60d4be70b50cb813d1e7599addb))
+
+
+
 <a name="0.1.1"></a>
 ## 0.1.1 (2017-10-02)
 
