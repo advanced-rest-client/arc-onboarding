@@ -330,8 +330,9 @@ Custom property | Description | Default
     // Saves information about the tutorial in Chrome store
     __setStateChrome: function(key) {
       return new Promise(resolve => {
-        /* global chrome */
-        chrome.storage.sync.set({key: true}, (data) => {
+        var obj = {};
+        obj[key] = true;
+        chrome.storage.sync.set(obj, (data) => {
           if (!data || !data[key]) {
             resolve(false);
           } else {
