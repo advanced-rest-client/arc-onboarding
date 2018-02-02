@@ -1,3 +1,13 @@
+<a name="0.2.1"></a>
+## [0.2.1](https://github.com/advanced-rest-client/arc-onboarding/compare/0.1.3...0.2.1) (2018-02-02)
+
+
+### Breaking
+
+* Updated onboarding pages. ([18558aaed5f115ecd4bdbd715293a0d56d5ec033](https://github.com/advanced-rest-client/arc-onboarding/commit/18558aaed5f115ecd4bdbd715293a0d56d5ec033))
+
+
+
 <a name="0.1.3"></a>
 ## [0.1.3](https://github.com/advanced-rest-client/arc-onboarding/compare/0.1.2...0.1.3) (2017-10-02)
 
