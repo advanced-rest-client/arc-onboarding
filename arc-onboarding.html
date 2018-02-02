@@ -71,6 +71,10 @@ Custom property | Description | Default
       font-size: 22px;
       line-height: 34px;
     }
+
+    .raml-icon {
+      color: #66c4e8;
+    }
     </style>
     <onboarding-tutorial auto id="onboarding" opened="{{opened}}" with-backdrop>
       <onboarding-page>
@@ -101,6 +105,54 @@ Custom property | Description | Default
       </onboarding-page>
       <onboarding-page>
         <div>
+          <h2>APIs documentation with RAML</h2>
+          <div class="onboarding-image-page">
+            <div class="image">
+              <iron-icon icon="arc:raml-r" class="raml-icon"></iron-icon>
+              <paper-button on-tap="_followLink" data-href="https://raml.org/" raised>What's RAML</paper-button>
+            </div>
+            <div class="description">
+              <div>
+                <p>
+                  Use RAML to document your APIs and read the documentation in ARC.
+                </p>
+                <p>
+                  Try documented endpoints in a convinient way by using examples as query parameters and body. ARC does it for you automatically.
+                </p>
+                <p>
+                  RAML documentation viewer is a part of the Mulesoft's API console open source project.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </onboarding-page>
+      <onboarding-page>
+        <div>
+          <h2>Hosts rules</h2>
+          <div class="onboarding-image-page">
+            <div class="image">
+              <iron-icon icon="arc:code"></iron-icon>
+              <paper-button on-tap="_followLink" data-href="https://github.com/advanced-rest-client/arc-electron/wiki/Host-rules" raised>Learn more</paper-button>
+            </div>
+            <div class="description">
+              <div>
+                <p>
+                  Create a host rules to redirect traffic from one host to another.
+                </p>
+                <p>
+                  No need for editing your "hosts" file anymore. You don't need administrator privileges to apply host rules.
+                </p>
+                <p>
+                  It is useful to debug virtual hosts configuration of your server, even when developping localy.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </onboarding-page>
+      <onboarding-page>
+        <div>
           <h2>You can do more with ARC</h2>
           <div class="onboarding-image-page">
             <div class="image">
@@ -114,23 +166,6 @@ Custom property | Description | Default
                 <div class="info-button">
                   <paper-button on-tap="_followLink" data-href="http://restforchrome.blogspot.co.uk/2016/04/arc-version-release-5-and-6.html" raised>Learn more</paper-button>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </onboarding-page>
-      <onboarding-page>
-        <div>
-          <h2>ARC beta program</h2>
-          <div class="onboarding-image-page">
-            <div class="image">
-              <iron-image src="data:image/png;base64,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"></iron-image>
-            </div>
-            <div class="description">
-              <div>
-                <p class="beta-info">
-                  Help us test new features and influence app's development by giving us early feedback.</p>
-                <paper-button on-tap="_followLink" data-href="http://restforchrome.blogspot.co.uk/2016/03/join-advanced-rest-client-beta-program.html" raised>sign up for beta program</paper-button>
               </div>
             </div>
           </div>
