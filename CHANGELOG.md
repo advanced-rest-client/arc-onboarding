@@ -44,3 +44,20 @@
 
 
 
+# [2.0.0](https://github.com/advanced-rest-client/arc-onboarding/compare/0.2.1...2.0.0) (2019-02-16)
+
+
+### Breaking
+
+* Updating component to Polymer 2 ([0c2abceeb48b580e97762ebdc5b61610a2077a00](https://github.com/advanced-rest-client/arc-onboarding/commit/0c2abceeb48b580e97762ebdc5b61610a2077a00))
+
+### Docs
+
+* Adding Polymer docs and typpings ([21e577db25897e28169ed220478efabb7b38753f](https://github.com/advanced-rest-client/arc-onboarding/commit/21e577db25897e28169ed220478efabb7b38753f))
+
+### Update
+
+* Removing linter command ([21e598fabea18358210fd19bf5fd192b63c4acf9](https://github.com/advanced-rest-client/arc-onboarding/commit/21e598fabea18358210fd19bf5fd192b63c4acf9))
+
+
+
