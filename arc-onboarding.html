@@ -73,8 +73,12 @@ Custom property | Description | Default
 
     .legal-info {
       font-size: 14px;
-      color: rgba(0, 0, 0, 0.57);
+      color: var(--arc-onboarding-legal-info-color, rgba(0, 0, 0, 0.57));
       margin-top: 40px;
+    }
+
+    a {
+      @apply --arc-link;
     }
     </style>
     <onboarding-tutorial auto id="onboarding13" opened="{{opened}}" delay="[[delay]]" with-backdrop>
