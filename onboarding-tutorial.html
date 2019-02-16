@@ -11,8 +11,11 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
 -->
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../polymer/lib/legacy/class.html">
+<link rel="import" href="../polymer/lib/utils/flattened-nodes-observer.html">
 <link rel="import" href="../neon-animation/neon-animated-pages.html">
+<link rel="import" href="../neon-animation/neon-animation-runner-behavior.html">
 <link rel="import" href="../neon-animation/animations/slide-from-right-animation.html">
 <link rel="import" href="../neon-animation/animations/slide-from-left-animation.html">
 <link rel="import" href="../neon-animation/animations/slide-left-animation.html">
@@ -62,6 +65,7 @@ Custom property | Description | Default
       padding: 8px 8px 8px 24px;
       margin: 0;
       color: var(--paper-dialog-button-color, --primary-color);
+      background: var(--paper-dialog-background-color, --primary-background-color);
       @apply --layout-horizontal;
     }
 
@@ -73,10 +77,21 @@ Custom property | Description | Default
       @apply --layout-flex;
     }
 
+    .action-button {
+      height: 40px;
+      background-color: var(--primary-color);
+      color: var(--primary-action-color, #fff);
+      @apply --action-button;
+    }
+
+    .action-button:hover {
+      @apply --action-button-hover;
+    }
+
     @media (max-width: 600px) {
       :host .actions {
-        @apply(--layout-vertical);
-        @apply(--layout-center);
+        @apply --layout-vertical;
+        @apply --layout-center;
       }
 
       :host neon-animated-pages {
@@ -85,7 +100,7 @@ Custom property | Description | Default
     }
     </style>
     <neon-animated-pages id="pages" selected="{{selectedPage}}" entry-animation="slide-from-right-animation" exit-animation="slide-left-animation">
-      <content id="content"></content>
+      <slot id="content"></slot>
     </neon-animated-pages>
     <div class="actions">
       <div class="pages" hidden$="[[noPagination]]">
@@ -95,211 +110,308 @@ Custom property | Description | Default
         </template>
         </paper-radio-group>
       </div>
-      <div class="flex" hidden$="[[!noPagination]]"></div>
+      <div class="flex"></div>
       <div class="buttons">
         <template is="dom-if" if="[[showSkip]]">
-          <paper-button on-tap="skip">Skip</paper-button>
+          <paper-button on-click="skip">Skip</paper-button>
         </template>
-        <template is="dom-if" if="[[showPrev]]">
-          <paper-button on-tap="prev" disabled$="[[!previousEnabled]]">Previous</paper-button>
+        <template is="dom-if" if="[[renderPrev]]">
+          <paper-button on-click="prev" disabled$="[[!previousEnabled]]">Previous</paper-button>
         </template>
-        <paper-button on-tap="next" class="action-button" raised>[[nextLabel]]</paper-button>
+        <template is="dom-if" if="[[renderPrev]]">
+          <paper-button on-click="next" class="action-button" raised>[[nextLabel]]</paper-button>
+        </template>
       </div>
     </div>
   </template>
   <script>
-  Polymer({
-    is: 'onboarding-tutorial',
-    properties: {
-      /**
-       * Delay tutorial show after attaching this element to the DOM.
-       * Use with combination with `auto`. It will do nothing if auto is not set.
-       */
-      delay: {
-        type: Number,
-        value: 2000
-      },
-      /**
-       * If true the tutorial will open itself automatically.
-       * Use with combination with `delay`.
-       * @type {Boolean}
-       */
-      auto: Boolean,
-      // Number of pages to display
-      pages: {
-        type: Array,
-        value: []
-      },
-      // Currently selected tutorial page.
-      selectedPage: {
-        type: Number,
-        value: 0
-      },
-      // Computed value, true if the "previous" button is enabled
-      previousEnabled: {
-        type: Boolean,
-        computed: '_comnputeShowPrevious(selectedPage)'
-      },
-      // Compyted value, true if the tutorial displays last page.
-      lastPage: {
-        type: Boolean,
-        computed: '_comnputeLastPage(selectedPage, pages)'
-      },
-      // Label for the "next" button
-      nextLabel: {
-        type: String,
-        computed: '_comnputeNextLabel(lastPage)'
-      },
-      // Computed value, true if to show "skip" button
-      showSkip: {
-        type: Boolean,
-        computed: '_comnputeShowSkip(lastPage)'
-      },
-      /**
-       * True when hide the pagination for tutorial pages.
-       */
-      noPagination: Boolean,
-      /**
-       * True to render "previous" button
-       */
-      showPrev: {
-        type: Boolean,
-        value: true
-      },
-      // Computed value if local storage is available.
-      _hasLocalStoreage: {
-        type: Boolean,
-        value: function() {
-          try {
-            localStorage.setItem('__test', 'a');
-            localStorage.removeItem('__test');
-            return true;
-          } catch (e) {
-            return false;
+  /**
+   * `onboarding-page`
+   *
+   * ## Styling
+   *
+   * `<onboarding-page>` provides the following custom properties and mixins for styling:
+   *
+   * Custom property | Description | Default
+   * ----------------|-------------|----------
+   * `--onboarding-page` | Mixin applied to this elment | `{}`
+   *
+   * @customElement
+   * @polymer
+   * @demo demo/index.html
+   * @memberof ApiElements
+   */
+  class OnboardingTutorial extends
+    Polymer.mixinBehaviors(
+      [Polymer.IronOverlayBehavior, Polymer.IronResizableBehavior, Polymer.NeonAnimationRunnerBehavior],
+      Polymer.Element) {
+    static get is() {
+      return 'onboarding-tutorial';
+    }
+    static get properties() {
+      return {
+        /**
+         * Delay tutorial show after attaching this element to the DOM.
+         * Use with combination with `auto`. It will do nothing if auto is not set.
+         */
+        delay: {
+          type: Number,
+          value: 2000
+        },
+        /**
+         * If true the tutorial will open itself automatically.
+         * Use with combination with `delay`.
+         * @type {Boolean}
+         */
+        auto: Boolean,
+        // Number of pages to display
+        pages: {
+          type: Array,
+          value: []
+        },
+        // Currently selected tutorial page.
+        selectedPage: {
+          type: Number,
+          value: 0
+        },
+        // Computed value, true if the "previous" button is enabled
+        previousEnabled: {
+          type: Boolean,
+          computed: '_computeShowPrevious(selectedPage)'
+        },
+        // Compyted value, true if the tutorial displays last page.
+        lastPage: {
+          type: Boolean,
+          computed: '_computeLastPage(selectedPage, pages)'
+        },
+        // Label for the "next" button
+        nextLabel: {
+          type: String,
+          computed: '_computeNextLabel(lastPage)'
+        },
+        // Computed value, true if to show "skip" button
+        showSkip: {
+          type: Boolean,
+          computed: '_computeShowSkip(lastPage)'
+        },
+        /**
+         * True when hide the pagination for tutorial pages.
+         */
+        noPagination: {type: Boolean, computed: '_computeNoPagination(pages)'},
+        /**
+         * True to render "previous" button
+         */
+        renderPrev: {
+          type: Boolean,
+          value: false,
+          computed: '_computeRenderPrev(pages)'
+        },
+        // Computed value if local storage is available.
+        _hasLocalStoreage: {
+          type: Boolean,
+          value() {
+            try {
+              localStorage.setItem('__test', 'a');
+              localStorage.removeItem('__test');
+              return true;
+            } catch (e) {
+              return false;
+            }
           }
         }
+      };
+    }
+
+    connectedCallback() {
+      super.connectedCallback();
+      if (!this.hasAttribute('role')) {
+        this.setAttribute('role', 'dialog');
       }
-    },
-    behaviors: [
-      Polymer.IronOverlayBehavior,
-      Polymer.IronResizableBehavior
-    ],
-    hostAttributes: {
-      'role': 'dialog',
-      'tabindex': '-1'
-    },
+      if (!this.hasAttribute('tabindex')) {
+        this.setAttribute('tabindex', '-1');
+      }
+      this._nodeObserver = new Polymer.FlattenedNodesObserver(this.$.content, (info) => {
+        this._processNewNodes(info.addedNodes);
+        this._processRemovedNodes(info.removedNodes);
+      });
+      this._checkTutorialOpen();
+      this.addEventListener('neon-animation-finish', this._onNeonAnimationFinish);
+    }
 
-    attached: function() {
-      var boundHandler = this._childNodesChanged.bind(this);
-      this._observer = Polymer.dom(this.$.content).observeNodes(boundHandler);
-    },
+    disconnectedCallback() {
+      super.disconnectedCallback();
+      this.removeEventListener('neon-animation-finish', this._onNeonAnimationFinish);
+      this._nodeObserver.disconnect();
+    }
 
-    detached: function() {
-      Polymer.dom(this.$.content).unobserveNodes(this._observer);
-    },
+    _renderOpened() {
+      this.cancelAnimation();
+      this.playAnimation('entry');
+    }
 
-    ready: function() {
-      if (!this.auto) {
+    _renderClosed() {
+      this.cancelAnimation();
+      this.playAnimation('exit');
+    }
+
+    _onNeonAnimationFinish() {
+      if (this.opened) {
+        this._finishRenderOpened();
+      } else {
+        this._finishRenderClosed();
+      }
+    }
+
+    _checkTutorialOpen() {
+      if (!this.auto || this._openedChecked) {
         return;
       }
+      this._openedChecked = true;
       if (this.delay) {
-        this.async(() => {
-          this.openTutorial();
-        }, this.delay);
+        setTimeout(() => this.openTutorial(), this.delay);
       } else {
         this.openTutorial();
       }
-    },
+    }
 
-    _childNodesChanged: function() {
-      var children = Polymer.dom(this).getEffectiveChildNodes();
-      children = children.filter((node) => node.nodeType === Node.ELEMENT_NODE);
-      this.set('pages', children);
-      if (this.pages.length === 1) {
-        //hide controls
-        this.noPagination = true;
-        this.showPrev = false;
+    _processNewNodes(nodes) {
+      if (!nodes) {
+        return;
       }
-    },
+      nodes = nodes.filter((node) => node.nodeType === Node.ELEMENT_NODE);
+      if (!nodes.length) {
+        return;
+      }
+      let pages = this.pages || [];
+      pages = pages.concat(nodes);
+      this.set('pages', pages);
+    }
 
-    openTutorial: function() {
-      this._getTutorialState()
-      .then(state => {
+    _processRemovedNodes(nodes) {
+      if (!nodes) {
+        return;
+      }
+      nodes = nodes.filter((node) => node.nodeType === Node.ELEMENT_NODE);
+      if (!nodes.length) {
+        return;
+      }
+      let pages = this.pages;
+      if (!pages || !pages.length) {
+        return;
+      }
+      pages = Array.from(pages);
+      for (let i = 0, len = nodes.length; i < len; i++) {
+        const index = pages.indexOf(nodes[i]);
+        if (index === -1) {
+          return;
+        }
+        pages.splice(i, 1);
+      }
+      this.set('pages', pages);
+    }
+
+    _computeNoPagination(pages) {
+      return !!(pages && pages.length <= 1);
+    }
+
+    _computeRenderPrev(pages) {
+      return !!(pages && pages.length > 1);
+    }
+    /**
+     * Check if tutorial can be opened (wasn't finished already) and opens it.
+     * @return {Promise}
+     */
+    openTutorial() {
+      return this._getTutorialState()
+      .then((state) => {
         if (state) {
           return;
         }
-        this.fire('tutorial-open');
+        this.dispatchEvent(new CustomEvent('tutorial-open', {
+          bubbles: true,
+          composed: true
+        }));
         this.open();
       });
-    },
+    }
 
-    _comnputeShowPrevious: function(selectedPage) {
+    _computeShowPrevious(selectedPage) {
       selectedPage = Number(selectedPage);
       return selectedPage > 0;
-    },
+    }
 
-    next: function() {
+    next() {
       if (this.lastPage) {
-        this.fire('send-analytics', {
-          type: 'event',
-          category: 'Onboarding',
-          action: 'Passed'
-        });
+        this.dispatchEvent(new CustomEvent('send-analytics', {
+          bubbles: true,
+          composed: true,
+          detail: {
+            type: 'event',
+            category: 'Onboarding',
+            action: 'Passed'
+          }
+        }));
         this.completeTutorial();
         return;
       }
       this.$.pages.entryAnimation = 'slide-from-right-animation';
       this.$.pages.exitAnimation = 'slide-left-animation';
       this.$.pages.selectNext();
-    },
+    }
 
-    prev: function() {
+    prev() {
       this.$.pages.entryAnimation = 'slide-from-left-animation';
       this.$.pages.exitAnimation = 'slide-right-animation';
       this.$.pages.selectPrevious();
-    },
+    }
 
-    completeTutorial: function() {
+    completeTutorial() {
+      this.close();
       if (!this.id) {
-        this.close();
         return;
       }
       this._saveTutorialPassed();
-      this.close();
-      this.fire('tutorial-close');
-    },
+      this.dispatchEvent(new CustomEvent('tutorial-close', {
+        bubbles: true,
+        composed: true
+      }));
+    }
 
-    skip: function() {
+    skip() {
       this.completeTutorial();
-      this.fire('send-analytics', {
-        type: 'event',
-        category: 'Onboarding',
-        action: 'Skipped'
-      });
-    },
+      this.dispatchEvent(new CustomEvent('send-analytics', {
+        bubbles: true,
+        composed: true,
+        type: {
+          type: 'event',
+          category: 'Onboarding',
+          action: 'Skipped'
+        }
+      }));
+    }
 
-    _tutorialId: function() {
+    _tutorialId() {
       if (!this.id) {
         return;
       }
       return 'tutorial_' + this.id;
-    },
+    }
 
-    _getTutorialState: function() {
-      var id = this._tutorialId();
+    _getTutorialState() {
+      const id = this._tutorialId();
       if (!id) {
         return Promise.resolve(false);
       }
 
       if (this._hasLocalStoreage) {
-        let value = localStorage.getItem(id);
+        const value = localStorage.getItem(id);
         return Promise.resolve(!!value);
       }
       return this.__getStateChrome(id);
-    },
+    }
 
-    _saveTutorialPassed: function() {
-      var id = this._tutorialId();
+    _saveTutorialPassed() {
+      const id = this._tutorialId();
       if (!id) {
         return Promise.resolve();
       }
@@ -308,15 +420,15 @@ Custom property | Description | Default
         return Promise.resolve();
       }
       return this.__setStateChrome(id);
-    },
+    }
     /**
      * Saves information about the tutorial in Chrome store.
      * @param {String} key Tutorial key
      * @return {Promise} Promise resolved to boolean value. True if the tutorial
      * has been presented to the user already.
      */
-    __getStateChrome: function(key) {
-      return new Promise(resolve => {
+    __getStateChrome(key) {
+      return new Promise((resolve) => {
         /* global chrome */
         chrome.storage.sync.get(key, (data) => {
           if (!data || !data[key]) {
@@ -326,34 +438,49 @@ Custom property | Description | Default
           }
         });
       });
-    },
-    // Saves information about the tutorial in Chrome store
-    __setStateChrome: function(key) {
-      return new Promise(resolve => {
-        var obj = {};
+    }
+    /**
+     * Saves information about the tutorial in Chrome store.
+     * @param {String} key Storage key
+     * @return {Promise}
+     */
+    __setStateChrome(key) {
+      return new Promise((resolve) => {
+        const obj = {};
         obj[key] = true;
-        chrome.storage.sync.set(obj, (data) => {
-          if (!data || !data[key]) {
-            resolve(false);
-          } else {
-            resolve(true);
-          }
-        });
+        chrome.storage.sync.set(obj, () => resolve());
       });
-    },
-    // Computes a lable value for the `nextLabel` property
-    _comnputeNextLabel: function(lastPage) {
+    }
+    /**
+     * Computes label for the "next" button.
+     * @param {Boolean} lastPage Current value for `lastPage` property.
+     * @return {String}
+     */
+    _computeNextLabel(lastPage) {
       return lastPage ? 'Close' : 'Next';
-    },
-    // Computes value for the `lastPage` property
-    _comnputeLastPage: function(selectedPage, pages) {
+    }
+    /**
+     * Computes value for the `lastPage` property.
+     * @param {Number} selectedPage
+     * @param {Number} pages
+     * @return {Boolean}
+     */
+    _computeLastPage(selectedPage, pages) {
+      if (!pages) {
+        return false;
+      }
       selectedPage = Number(selectedPage);
       return selectedPage === pages.length - 1;
-    },
-    // Computes value for `showSkip` value
-    _comnputeShowSkip: function(lastPage) {
+    }
+    /**
+     * Computes value for `showSkip` value.
+     * @param {Boolean} lastPage Current value for `lastPage` property.
+     * @return {Boolean}
+     */
+    _computeShowSkip(lastPage) {
       return lastPage ? false : true;
     }
-  });
+  }
+  window.customElements.define(OnboardingTutorial.is, OnboardingTutorial);
   </script>
 </dom-module>
