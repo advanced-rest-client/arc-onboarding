@@ -1,64 +1,69 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
-    <title>arc-onboarding demo</title>
-    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
-    <link rel="import" href="../../shadycss/apply-shim.html">
-    <link rel="import" href="../../polymer/lib/elements/custom-style.html">
-    <link rel="import" href="../../polymer/lib/elements/dom-bind.html">
-    <link rel="import" href="../../neon-animation/web-animations.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-    <link rel="import" href="../arc-onboarding.html">
-    <link rel="import" href="../../arc-electron-default-theme/arc-electron-default-theme.html">
-    <custom-style>
-      <style is="custom-style" include="demo-pages-shared-styles">
-      body,
-      html {
-        background-color: #e5e5e5;
-        margin: 0;
-        padding: 0;
-      }
 
-      html {
-        --primary-background-color: #fff;
-        --paper-dialog-background-color: #fff;
-      }
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+  <title>arc-onboarding demo</title>
 
-      output {
-        display: block;
-        white-space: pre-wrap;
-        padding: 8px;
-        background-color: #FFF8E1;
-        margin-top: 20px;
-      }
+  <script src="../../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+  <script src="../../../web-animations-js/web-animations-next.min.js"></script>
 
-      .card {
-        padding: 20px;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        box-sizing: border-box;
-        background-color: #fff;
-      }
+  <script type="module" src="../../../@webcomponents/shadycss/entrypoints/apply-shim.js"></script>
+  <script type="module" src="../../../@polymer/polymer/lib/elements/custom-style.js"></script>
+  <script type="module" src="../../../@polymer/polymer/lib/elements/dom-bind.js"></script>
+  <script type="module" src="../../../@polymer/iron-demo-helpers/demo-pages-shared-styles.js"></script>
+  <script type="module" src="../../../@polymer/iron-demo-helpers/demo-snippet.js"></script>
+  <script type="module" src="../../../@advanced-rest-client/arc-electron-default-theme/arc-electron-default-theme.js"></script>
+  <script type="module" src="../arc-onboarding.js"></script>
 
-      .card {
-        @apply --shadow-elevation-4dp;
-      }
-      </style>
-    </custom-style>
-  </head>
-  <body>
-    <dom-bind id="demo">
-      <template is="dom-bind">
-        <div class="vertical-section-container centered card" role="main">
-          <paper-button on-click="_open">Open tutorial</paper-button>
-          <arc-onboarding></arc-onboarding>
-        </div>
-      </template>
-    </dom-bind>
-    <script>
+  <custom-style>
+    <style is="custom-style" include="demo-pages-shared-styles">
+    body,
+    html {
+      background-color: #e5e5e5;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      --primary-background-color: #fff;
+      --paper-dialog-background-color: #fff;
+    }
+
+    output {
+      display: block;
+      white-space: pre-wrap;
+      padding: 8px;
+      background-color: #FFF8E1;
+      margin-top: 20px;
+    }
+
+    .card {
+      padding: 20px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+      background-color: #fff;
+    }
+
+    .card {
+      @apply --shadow-elevation-4dp;
+    }
+    </style>
+  </custom-style>
+</head>
+
+<body>
+  <dom-bind id="demo">
+    <template is="dom-bind">
+      <div class="vertical-section-container centered card" role="main">
+        <paper-button on-click="_open">Open tutorial</paper-button>
+        <arc-onboarding></arc-onboarding>
+      </div>
+    </template>
+  </dom-bind>
+  <script>
     (function(app) {
       app._open = function() {
         document.body.querySelector('arc-onboarding').opened = true;

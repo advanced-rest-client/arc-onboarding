@@ -1,4 +1,4 @@
-<!--
+/**
 @license
 Copyright 2019 The Advanced REST client authors <arc@mulesoft.com>
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -10,17 +10,17 @@ distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
--->
-<link rel="import" href="../polymer/polymer-element.html">
-<link rel="import" href="../iron-icon/iron-icon.html">
-<link rel="import" href="../arc-icons/arc-icons.html">
-<link rel="import" href="../paper-button/paper-button.html">
-<link rel="import" href="../iron-image/iron-image.html">
-<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="onboarding-tutorial.html">
-<link rel="import" href="onboarding-page.html">
-
-<!--
+*/
+import {PolymerElement} from '../../@polymer/polymer/polymer-element.js';
+import '../../@polymer/iron-icon/iron-icon.js';
+import '../../@advanced-rest-client/arc-icons/arc-icons.js';
+import '../../@polymer/paper-button/paper-button.js';
+import '../../@polymer/iron-image/iron-image.js';
+import '../../@polymer/iron-flex-layout/iron-flex-layout.js';
+import './onboarding-tutorial.js';
+import './onboarding-page.js';
+import {html} from '../../@polymer/polymer/lib/utils/html-tag.js';
+/**
 `<arc-onboarding>` Onboarding tutorial for the ARC
 
 ### Example
@@ -38,9 +38,10 @@ Custom property | Description | Default
 @group UI Elements
 @element arc-onboarding
 @demo demo/index.html
--->
-<dom-module id="arc-onboarding">
-  <template>
+*/
+class ArcOnboarding extends PolymerElement {
+  static get template() {
+    return html`
     <style>
     :host {
       display: block;
@@ -81,31 +82,31 @@ Custom property | Description | Default
       @apply --arc-link;
     }
     </style>
-    <onboarding-tutorial auto id="onboarding13" opened="{{opened}}" delay="[[delay]]" with-backdrop>
+    <onboarding-tutorial auto="" id="onboarding13" opened="{{opened}}" delay="[[delay]]" with-backdrop="">
       <div class="welcome-message">
         <p class="c1">Thank you for choosing</p>
         <p class="c2">Advanced REST Client</p>
         <p class="c3">Let's walk through some key features</p>
       </div>
-      <onboarding-page with-image>
+      <onboarding-page with-image="">
         <h2 slot="title">Google Drive sharing</h2>
         <iron-icon slot="image" icon="arc:drive-color"></iron-icon>
         <div>
           <p>Save and share your data with Google Drive.</p>
           <p>You can export your data to file and share it with others.</p>
           <div class="info-button">
-            <paper-button on-click="_followLink" data-href="http://restforchrome.blogspot.com/2016/04/data-sharing-options-in-new-advanced.html" raised>Learn more</paper-button>
+            <paper-button on-click="_followLink" data-href="http://restforchrome.blogspot.com/2016/04/data-sharing-options-in-new-advanced.html" raised="">Learn more</paper-button>
           </div>
           <p class="legal-info">
             Advanced REST Client accesses data stored in your Google Drive on your request only and limits the information to created by the application files and folders only.
-            Authorization tokens are stored in memory and are cleared when you close the application.<br/>
+            Authorization tokens are stored in memory and are cleared when you close the application.<br>
             ARC uses Google Drive to list created by the application files when using "Open from Drive" option. It uploads requests, projects, or backup data to Your Drive
-            when you request it in application UI.<br/>
+            when you request it in application UI.<br>
             The application do not use Google Drive for anything else. The application do not store Google profile information.
           </p>
         </div>
       </onboarding-page>
-      <onboarding-page with-image>
+      <onboarding-page with-image="">
         <h2 slot="title">APIs documentation with RAML and OAS</h2>
         <iron-icon slot="image" icon="arc:raml-r" class="raml-icon"></iron-icon>
         <div>
@@ -123,10 +124,10 @@ Custom property | Description | Default
           </p>
         </div>
       </onboarding-page>
-      <onboarding-page with-image>
+      <onboarding-page with-image="">
         <h2 slot="title">Hosts rules</h2>
         <iron-icon slot="image" icon="arc:code"></iron-icon>
-        <paper-button slot="image" on-click="_followLink" data-href="https://github.com/advanced-rest-client/arc-electron/wiki/Host-rules" raised>Learn more</paper-button>
+        <paper-button slot="image" on-click="_followLink" data-href="https://github.com/advanced-rest-client/arc-electron/wiki/Host-rules" raised="">Learn more</paper-button>
         <p>
           Create a host rules to redirect traffic from one host to another.
         </p>
@@ -137,10 +138,10 @@ Custom property | Description | Default
           It is useful to debug virtual hosts configuration of your server, even when developping localy.
         </p>
       </onboarding-page>
-      <onboarding-page with-image>
+      <onboarding-page with-image="">
         <h2 slot="title">Session management</h2>
         <iron-icon slot="image" icon="arc:account-circle"></iron-icon>
-        <paper-button slot="image" on-click="_followLink" data-href="https://medium.com/@jarrodek/authenticating-to-a-web-service-cookies-session-in-advanced-rest-client-6293a869c9ac" raised>Learn more</paper-button>
+        <paper-button slot="image" on-click="_followLink" data-href="https://medium.com/@jarrodek/authenticating-to-a-web-service-cookies-session-in-advanced-rest-client-6293a869c9ac" raised="">Learn more</paper-button>
         <p>
           Log in to a web service using build in web browser based on Chrome.
         </p>
@@ -151,10 +152,10 @@ Custom property | Description | Default
           Manage session cookies in menu Request &gt; Web session
         </p>
       </onboarding-page>
-      <onboarding-page with-image>
+      <onboarding-page with-image="">
         <h2 slot="title">Privacy</h2>
         <iron-icon slot="image" icon="arc:shield"></iron-icon>
-        <paper-button slot="image" on-click="_followLink" data-href="https://docs.google.com/document/d/1BzrKQ0NxFXuDIe2zMA-0SZBNU0P46MHr4GftZmoLUQU/edit" raised>Read full privacy policy</paper-button>
+        <paper-button slot="image" on-click="_followLink" data-href="https://docs.google.com/document/d/1BzrKQ0NxFXuDIe2zMA-0SZBNU0P46MHr4GftZmoLUQU/edit" raised="">Read full privacy policy</paper-button>
         <div>
           <p>Protecting your data and your trust is always our first priority. The application never shares <b>any</b> data until you request or allow it.</p>
           <p>
@@ -173,45 +174,27 @@ Custom property | Description | Default
         </div>
       </onboarding-page>
     </onboarding-tutorial>
-  </template>
-  <script>
-  /**
-   * `onboarding-page`
-   *
-   * ## Styling
-   *
-   * `<onboarding-page>` provides the following custom properties and mixins for styling:
-   *
-   * Custom property | Description | Default
-   * ----------------|-------------|----------
-   * `--onboarding-page` | Mixin applied to this elment | `{}`
-   *
-   * @customElement
-   * @polymer
-   * @demo demo/index.html
-   * @memberof ApiElements
-   */
-  class ArcOnboarding extends Polymer.Element {
-    static get is() {
-      return 'arc-onboarding';
-    }
-    static get properties() {
-      return {
-        // True if the tutorial is being rendered.
-        opened: Boolean,
-        /**
-         * Number of miliseconds to upen the tutorial.
-         */
-        delay: Number
-      };
-    }
+`;
+  }
 
-    _followLink(e) {
-      if (e.target.dataset.href) {
-        return window.open(e.target.dataset.href);
-      }
+  static get is() {
+    return 'arc-onboarding';
+  }
+  static get properties() {
+    return {
+      // True if the tutorial is being rendered.
+      opened: Boolean,
+      /**
+       * Number of miliseconds to upen the tutorial.
+       */
+      delay: Number
+    };
+  }
+
+  _followLink(e) {
+    if (e.target.dataset.href) {
+      return window.open(e.target.dataset.href);
     }
   }
-  window.customElements.define(ArcOnboarding.is, ArcOnboarding);
-  </script>
-</dom-module>
+}
+window.customElements.define(ArcOnboarding.is, ArcOnboarding);

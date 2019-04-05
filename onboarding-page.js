@@ -1,4 +1,4 @@
-<!--
+/**
 @license
 Copyright 2019 The Advanced REST client authors <arc@mulesoft.com>
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -10,17 +10,34 @@ distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
--->
-<link rel="import" href="../polymer/polymer-element.html">
-<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
-<dom-module id="onboarding-page">
-  <template>
+*/
+import {PolymerElement} from '../../@polymer/polymer/polymer-element.js';
+import '../../@polymer/iron-flex-layout/iron-flex-layout.js';
+import {html} from '../../@polymer/polymer/lib/utils/html-tag.js';
+/**
+ * `onboarding-page`
+ *
+ * ## Styling
+ *
+ * `<onboarding-page>` provides the following custom properties and mixins for styling:
+ *
+ * Custom property | Description | Default
+ * ----------------|-------------|----------
+ * `--onboarding-page` | Mixin applied to this elment | `{}`
+ *
+ * @customElement
+ * @polymer
+ * @demo demo/index.html
+ * @memberof ApiElements
+ */
+class OnboardingPage extends PolymerElement {
+  static get template() {
+    return html`
     <style>
     :host {
       overflow: auto;
       @apply --layout-vertical;
       @apply --layout-flex;
-      @apply --onboarding-page;
       font-size: 19px;
     }
 
@@ -34,7 +51,6 @@ the License.
       padding: 24px;
       @apply --paper-font-display1;
       @apply --paper-dialog-title;
-      @apply --onboarding-page-header;
     }
 
     .page {
@@ -78,35 +94,12 @@ the License.
       <div class="info">
         <slot></slot>
       </div>
-    </div>
-  </template>
-  <script>
-  /**
-   * `onboarding-page`
-   *
-   * ## Styling
-   *
-   * `<onboarding-page>` provides the following custom properties and mixins for styling:
-   *
-   * Custom property | Description | Default
-   * ----------------|-------------|----------
-   * `--onboarding-page` | Mixin applied to this elment | `{}`
-   *
-   * @customElement
-   * @polymer
-   * @demo demo/index.html
-   * @memberof ApiElements
-   */
-  class OnboardingPage extends Polymer.Element {
-    static get is() {
-      return 'onboarding-page';
-    }
-    static get properties() {
-      return {
-        withImage: {type: Boolean, reflectToAttribute: true}
-      };
-    }
+    </div>`;
   }
-  window.customElements.define(OnboardingPage.is, OnboardingPage);
-  </script>
-</dom-module>
+  static get properties() {
+    return {
+      withImage: {type: Boolean, reflectToAttribute: true}
+    };
+  }
+}
+window.customElements.define('onboarding-page', OnboardingPage);

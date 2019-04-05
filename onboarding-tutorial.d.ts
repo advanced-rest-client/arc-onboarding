@@ -5,41 +5,16 @@
  *   https://github.com/Polymer/tools/tree/master/packages/gen-typescript-declarations
  *
  * To modify these typings, edit the source file(s):
- *   onboarding-tutorial.html
+ *   onboarding-tutorial.js
  */
 
 
 // tslint:disable:variable-name Describing an API that's defined elsewhere.
 // tslint:disable:no-any describes the API as best we are able today
 
-/// <reference path="../polymer/types/polymer-element.d.ts" />
-/// <reference path="../polymer/types/lib/legacy/class.d.ts" />
-/// <reference path="../polymer/types/lib/utils/flattened-nodes-observer.d.ts" />
-/// <reference path="../neon-animation/neon-animated-pages.d.ts" />
-/// <reference path="../neon-animation/neon-animation-runner-behavior.d.ts" />
-/// <reference path="../neon-animation/animations/slide-from-right-animation.d.ts" />
-/// <reference path="../neon-animation/animations/slide-from-left-animation.d.ts" />
-/// <reference path="../neon-animation/animations/slide-left-animation.d.ts" />
-/// <reference path="../neon-animation/animations/slide-right-animation.d.ts" />
-/// <reference path="../paper-radio-group/paper-radio-group.d.ts" />
-/// <reference path="../paper-radio-button/paper-radio-button.d.ts" />
-/// <reference path="../paper-button/paper-button.d.ts" />
-/// <reference path="../iron-resizable-behavior/iron-resizable-behavior.d.ts" />
-/// <reference path="../iron-overlay-behavior/iron-overlay-behavior.d.ts" />
-/// <reference path="../iron-flex-layout/iron-flex-layout.d.ts" />
-
 declare namespace ApiElements {
 
   /**
-   * An overlay that displays onboarding tutorial for ARC.
-   *
-   * ### Styling
-   * `<arc-onboarding>` provides the following custom properties and mixins for styling:
-   *
-   * Custom property | Description | Default
-   * ----------------|-------------|----------
-   * `--onboarding-tutorial` | Mixin applied to the element | `{}`
-   *
    * `onboarding-page`
    *
    * ## Styling
@@ -153,6 +128,11 @@ declare namespace ApiElements {
   }
 }
 
-interface HTMLElementTagNameMap {
-  "onboarding-tutorial": ApiElements.OnboardingTutorial;
+declare global {
+
+  interface HTMLElementTagNameMap {
+    "onboarding-tutorial": ApiElements.OnboardingTutorial;
+  }
 }
+
+export {};

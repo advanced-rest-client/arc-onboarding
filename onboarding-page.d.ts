@@ -5,14 +5,11 @@
  *   https://github.com/Polymer/tools/tree/master/packages/gen-typescript-declarations
  *
  * To modify these typings, edit the source file(s):
- *   onboarding-page.html
+ *   onboarding-page.js
  */
 
 
 // tslint:disable:variable-name Describing an API that's defined elsewhere.
-
-/// <reference path="../polymer/types/polymer-element.d.ts" />
-/// <reference path="../iron-flex-layout/iron-flex-layout.d.ts" />
 
 declare namespace ApiElements {
 
@@ -27,11 +24,16 @@ declare namespace ApiElements {
    * ----------------|-------------|----------
    * `--onboarding-page` | Mixin applied to this elment | `{}`
    */
-  class OnboardingPage extends Polymer.Element {
+  class OnboardingPage extends PolymerElement {
     withImage: boolean|null|undefined;
   }
 }
 
-interface HTMLElementTagNameMap {
-  "onboarding-page": ApiElements.OnboardingPage;
+declare global {
+
+  interface HTMLElementTagNameMap {
+    "onboarding-page": ApiElements.OnboardingPage;
+  }
 }
+
+export {};

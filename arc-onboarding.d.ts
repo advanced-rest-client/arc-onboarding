@@ -5,64 +5,47 @@
  *   https://github.com/Polymer/tools/tree/master/packages/gen-typescript-declarations
  *
  * To modify these typings, edit the source file(s):
- *   arc-onboarding.html
+ *   arc-onboarding.js
  */
 
 
 // tslint:disable:variable-name Describing an API that's defined elsewhere.
 // tslint:disable:no-any describes the API as best we are able today
 
-/// <reference path="../polymer/types/polymer-element.d.ts" />
-/// <reference path="../iron-icon/iron-icon.d.ts" />
-/// <reference path="../arc-icons/arc-icons.d.ts" />
-/// <reference path="../paper-button/paper-button.d.ts" />
-/// <reference path="../iron-image/iron-image.d.ts" />
-/// <reference path="../iron-flex-layout/iron-flex-layout.d.ts" />
-/// <reference path="onboarding-tutorial.d.ts" />
-/// <reference path="onboarding-page.d.ts" />
-
-declare namespace ApiElements {
+/**
+ * `<arc-onboarding>` Onboarding tutorial for the ARC
+ *
+ * ### Example
+ * ```
+ * <arc-onboarding></arc-onboarding>
+ * ```
+ *
+ * ### Styling
+ * `<arc-onboarding>` provides the following custom properties and mixins for styling:
+ *
+ * Custom property | Description | Default
+ * ----------------|-------------|----------
+ * `--arc-onboarding` | Mixin applied to the element | `{}`
+ */
+declare class ArcOnboarding extends PolymerElement {
 
   /**
-   * `<arc-onboarding>` Onboarding tutorial for the ARC
-   *
-   * ### Example
-   * ```
-   * <arc-onboarding></arc-onboarding>
-   * ```
-   *
-   * ### Styling
-   * `<arc-onboarding>` provides the following custom properties and mixins for styling:
-   *
-   * Custom property | Description | Default
-   * ----------------|-------------|----------
-   * `--arc-onboarding` | Mixin applied to the element | `{}`
-   *
-   * `onboarding-page`
-   *
-   * ## Styling
-   *
-   * `<onboarding-page>` provides the following custom properties and mixins for styling:
-   *
-   * Custom property | Description | Default
-   * ----------------|-------------|----------
-   * `--onboarding-page` | Mixin applied to this elment | `{}`
+   * True if the tutorial is being rendered.
    */
-  class ArcOnboarding extends Polymer.Element {
+  opened: boolean|null|undefined;
 
-    /**
-     * True if the tutorial is being rendered.
-     */
-    opened: boolean|null|undefined;
+  /**
+   * Number of miliseconds to upen the tutorial.
+   */
+  delay: number|null|undefined;
+  _followLink(e: any): any;
+}
 
-    /**
-     * Number of miliseconds to upen the tutorial.
-     */
-    delay: number|null|undefined;
-    _followLink(e: any): any;
+declare global {
+
+  interface HTMLElementTagNameMap {
+    "arc-onboarding": ArcOnboarding;
   }
 }
 
-interface HTMLElementTagNameMap {
-  "arc-onboarding": ApiElements.ArcOnboarding;
-}
+export {};
