@@ -2311,7 +2311,7 @@
             {
               "name": "value",
               "type": "*=",
-              "description": "Property value to refect."
+              "description": "Property value to reflect."
             }
           ],
           "return": {
@@ -6221,7 +6221,7 @@
             {
               "name": "value",
               "type": "*=",
-              "description": "Property value to refect."
+              "description": "Property value to reflect."
             }
           ],
           "return": {

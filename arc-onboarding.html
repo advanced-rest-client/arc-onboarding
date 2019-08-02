@@ -92,16 +92,16 @@ Custom property | Description | Default
         <iron-icon slot="image" icon="arc:drive-color"></iron-icon>
         <div>
           <p>Save and share your data with Google Drive.</p>
-          <p>You can export your data to file and share it with others.</p>
+          <p>You can export your data to a file and share it with others.</p>
           <div class="info-button">
             <paper-button on-click="_followLink" data-href="http://restforchrome.blogspot.com/2016/04/data-sharing-options-in-new-advanced.html" raised>Learn more</paper-button>
           </div>
           <p class="legal-info">
-            Advanced REST Client accesses data stored in your Google Drive on your request only and limits the information to created by the application files and folders only.
-            Authorization tokens are stored in memory and are cleared when you close the application.<br/>
-            ARC uses Google Drive to list created by the application files when using "Open from Drive" option. It uploads requests, projects, or backup data to Your Drive
-            when you request it in application UI.<br/>
-            The application do not use Google Drive for anything else. The application do not store Google profile information.
+            Advanced REST Client accesses data stored in your Google Drive on your request only, and limits the information to created by the application files and folders only.
+            Authorization tokens are stored in memory, and are cleared when you close the application.<br/>
+            ARC uses Google Drive to list files created by the application when using "Open from Drive" option. It uploads requests, projects, or backup data to your Drive
+            when you request it in the application UI.<br/>
+            The application does not use Google Drive for anything else. The application does not store Google profile information.
           </p>
         </div>
       </onboarding-page>
@@ -113,13 +113,13 @@ Custom property | Description | Default
             Use RAML or OAS to document your APIs and read the documentation in ARC with <a href="https://github.com/mulesoft/api-console" target="_blank">API Console</a>.
           </p>
           <p>
-            Use API request editor with prefilled request data generated from API examples and try the API in seconds.
+            Use API request editor with prefilled request data generated from API examples, and try the API in seconds.
           </p>
           <p>
-            RAML documentation viewer is a part of the Mulesoft's API Console open source project.
+            RAML documentation viewer is a part of Mulesoft's API Console open source project.
           </p>
           <p>
-            Learn more about <a href="https://raml.org/" target="_blank">RAML</a> and <a href="https://github.com/OAI/OpenAPI-Specification" target="_blank">OAS</a>
+            Learn more about <a href="https://raml.org/" target="_blank">RAML</a> and <a href="https://github.com/OAI/OpenAPI-Specification" target="_blank">OAS</a>.
           </p>
         </div>
       </onboarding-page>
@@ -128,13 +128,13 @@ Custom property | Description | Default
         <iron-icon slot="image" icon="arc:code"></iron-icon>
         <paper-button slot="image" on-click="_followLink" data-href="https://github.com/advanced-rest-client/arc-electron/wiki/Host-rules" raised>Learn more</paper-button>
         <p>
-          Create a host rules to redirect traffic from one host to another.
+          Create host rules to redirect traffic from one host to another.
         </p>
         <p>
           No need for editing your "hosts" file anymore. You don't need administrator privileges to apply host rules.
         </p>
         <p>
-          It is useful to debug virtual hosts configuration of your server, even when developping localy.
+          It is useful to debug virtual hosts configuration of your server, even when developing locally.
         </p>
       </onboarding-page>
       <onboarding-page with-image>
@@ -142,13 +142,13 @@ Custom property | Description | Default
         <iron-icon slot="image" icon="arc:account-circle"></iron-icon>
         <paper-button slot="image" on-click="_followLink" data-href="https://medium.com/@jarrodek/authenticating-to-a-web-service-cookies-session-in-advanced-rest-client-6293a869c9ac" raised>Learn more</paper-button>
         <p>
-          Log in to a web service using build in web browser based on Chrome.
+          Log in to a web service using Chrome based built in web browser.
         </p>
         <p>
-          Cookies are automatically applied to the request as would browser do it.
+          Cookies are automatically applied to the request as browser would do it.
         </p>
         <p>
-          Manage session cookies in menu Request &gt; Web session
+          Manage session cookies in the Request &gt; Web session menu.
         </p>
       </onboarding-page>
       <onboarding-page with-image>
@@ -158,14 +158,14 @@ Custom property | Description | Default
         <div>
           <p>Protecting your data and your trust is always our first priority. The application never shares <b>any</b> data until you request or allow it.</p>
           <p>
-            To provide better quality the app is collecting anonymous usage statistics.
+            To provide better quality, the app is collecting anonymous usage statistics.
           </p>
           <p>Data the app is using and how:</p>
           <ul>
             <li>Any access tokens provided by you or generated by the app are stored in local history along with the request.</li>
-            <li>Google Drive file ID of opened by the app file is stored in the local history.</li>
-            <li>(Chrome app only) You settings are synced between your profiles, if you are signed in to Chrome, using Google Sync service for Chrome Apps.</li>
-            <li>The app collects critical errors generated by the app and send them to Google Analytics. Data included in the report contains information about the exception itself (error message) and intentionally will not collect any user or user provided data.</li>
+            <li>Google Drive file ID of files opened by the app are stored in the local history.</li>
+            <li>(Chrome app only) Your settings are synced between your profiles, if you are signed in to Chrome, using Google Sync service for Chrome Apps.</li>
+            <li>The app collects critical errors generated by the app, and sends them to Google Analytics. Data included in the report contains information about the exception itself (error message), and will not intentionally contain any user or user provided data.</li>
           </ul>
           <p>
             You can turn off Google Analytics and local history in application settings.
