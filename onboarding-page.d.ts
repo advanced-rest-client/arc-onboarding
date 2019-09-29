@@ -5,33 +5,10 @@
  *   https://github.com/Polymer/tools/tree/master/packages/gen-typescript-declarations
  *
  * To modify these typings, edit the source file(s):
- *   onboarding-page.html
+ *   onboarding-page.js
  */
 
 
 // tslint:disable:variable-name Describing an API that's defined elsewhere.
 
-/// <reference path="../polymer/types/polymer-element.d.ts" />
-/// <reference path="../iron-flex-layout/iron-flex-layout.d.ts" />
-
-declare namespace ApiElements {
-
-  /**
-   * `onboarding-page`
-   *
-   * ## Styling
-   *
-   * `<onboarding-page>` provides the following custom properties and mixins for styling:
-   *
-   * Custom property | Description | Default
-   * ----------------|-------------|----------
-   * `--onboarding-page` | Mixin applied to this elment | `{}`
-   */
-  class OnboardingPage extends Polymer.Element {
-    withImage: boolean|null|undefined;
-  }
-}
-
-interface HTMLElementTagNameMap {
-  "onboarding-page": ApiElements.OnboardingPage;
-}
+import {OnboardingPage} from './src/OnboardingPage.js';
