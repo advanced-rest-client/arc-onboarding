@@ -80,3 +80,7 @@
 
 
 
+# [3.0.0](https://github.com/advanced-rest-client/arc-onboarding/compare/0.2.1...3.0.0) (2019-09-29)
+
+
+
