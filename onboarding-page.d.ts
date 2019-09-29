@@ -11,29 +11,4 @@
 
 // tslint:disable:variable-name Describing an API that's defined elsewhere.
 
-declare namespace ApiElements {
-
-  /**
-   * `onboarding-page`
-   *
-   * ## Styling
-   *
-   * `<onboarding-page>` provides the following custom properties and mixins for styling:
-   *
-   * Custom property | Description | Default
-   * ----------------|-------------|----------
-   * `--onboarding-page` | Mixin applied to this elment | `{}`
-   */
-  class OnboardingPage extends PolymerElement {
-    withImage: boolean|null|undefined;
-  }
-}
-
-declare global {
-
-  interface HTMLElementTagNameMap {
-    "onboarding-page": ApiElements.OnboardingPage;
-  }
-}
-
-export {};
+import {OnboardingPage} from './src/OnboardingPage.js';

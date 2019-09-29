@@ -7,17 +7,7 @@
 
 # arc-onboarding
 
-Onboarding tutorial for the ARC.
-
-## Example:
-
-```html
-<arc-onboarding></arc-onboarding>
-```
-
-## API components
-
-This components is a part of [API components ecosystem](https://elements.advancedrestclient.com/)
+On-boarding tutorial for Advanced REST Client.
 
 ## Usage
 
@@ -26,54 +16,48 @@ This components is a part of [API components ecosystem](https://elements.advance
 npm install --save @advanced-rest-client/arc-onboarding
 ```
 
-### In an html file
+### In a LitELement template
 
-```html
-<html>
-  <head>
-    <script type="module">
-      import './node_modules/@advanced-rest-client/arc-onboarding/arc-onboarding.js';
-    </script>
-  </head>
-  <body>
-    <arc-onboarding></arc-onboarding>
-  </body>
-</html>
-```
+```javascript
+import { LitElement, html } from 'lit-element';
+import '@advanced-rest-client/arc-onboarding/arc-onboarding.js';
 
-### In a Polymer 3 element
-
-```js
-import {PolymerElement, html} from './node_modules/@polymer/polymer/polymer-element.js';
-import './node_modules/@advanced-rest-client/arc-onboarding/arc-onboarding.js';
-
-class SampleElement extends PolymerElement {
-  static get template() {
+class SampleElement extends LitElement {
+  render() {
     return html`
-    <arc-onboarding></arc-onboarding>
+    <arc-onboarding opened @tutorial-close="${this._closeHandler}"></arc-onboarding>
     `;
+  }
+
+  _closeHandler() {
+    localStorage.setItem('tutorial-passed', 'true');
   }
 }
 customElements.define('sample-element', SampleElement);
 ```
 
-### Installation
+### Running the tutorial
+
+The application should store the information when the tutorial was passed and skip
+initialization when the user finished it. Handle the `tutorial-close` event to
+set flag in the store.
+This event is not dispatched when the user cancelled the dialog (ESC key for example).
+
+## Development
 
 ```sh
 git clone https://github.com/advanced-rest-client/arc-onboarding
-cd api-url-editor
-npm install
-npm install -g polymer-cli
+cd arc-onboarding
+npm i
 ```
 
 ### Running the demo locally
 
 ```sh
-polymer serve --npm
-open http://127.0.0.1:<port>/demo/
+npm start
 ```
 
 ### Running the tests
 ```sh
-polymer test --npm
+npm test
 ```

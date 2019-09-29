@@ -10,42 +10,5 @@
 
 
 // tslint:disable:variable-name Describing an API that's defined elsewhere.
-// tslint:disable:no-any describes the API as best we are able today
 
-/**
- * `<arc-onboarding>` Onboarding tutorial for the ARC
- *
- * ### Example
- * ```
- * <arc-onboarding></arc-onboarding>
- * ```
- *
- * ### Styling
- * `<arc-onboarding>` provides the following custom properties and mixins for styling:
- *
- * Custom property | Description | Default
- * ----------------|-------------|----------
- * `--arc-onboarding` | Mixin applied to the element | `{}`
- */
-declare class ArcOnboarding extends PolymerElement {
-
-  /**
-   * True if the tutorial is being rendered.
-   */
-  opened: boolean|null|undefined;
-
-  /**
-   * Number of miliseconds to upen the tutorial.
-   */
-  delay: number|null|undefined;
-  _followLink(e: any): any;
-}
-
-declare global {
-
-  interface HTMLElementTagNameMap {
-    "arc-onboarding": ArcOnboarding;
-  }
-}
-
-export {};
+import {ArcOnboarding} from './src/ArcOnboarding.js';
