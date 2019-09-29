@@ -84,3 +84,12 @@
 
 
 
+## [3.0.1](https://github.com/advanced-rest-client/arc-onboarding/compare/0.2.1...3.0.1) (2019-09-29)
+
+
+### Bug Fixes
+
+* fixes [#1](https://github.com/advanced-rest-client/arc-onboarding/issues/1) spelling in the tutorial ([e692fc3](https://github.com/advanced-rest-client/arc-onboarding/commit/e692fc3))
+
+
+
